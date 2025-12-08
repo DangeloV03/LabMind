@@ -30,14 +30,25 @@ export default function ContactForm() {
     setStatus('loading')
     setMessage('')
 
-    // TODO: Replace with actual API endpoint
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      setStatus('success')
-      setMessage('Thank you! We\'ll be in touch soon.')
-      setEmail('')
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setStatus('success')
+        setMessage('Thanks for joining! We\'ll notify you when we launch.')
+        setEmail('')
+      } else {
+        setStatus('error')
+        setMessage(data.error || 'Something went wrong. Please try again.')
+      }
     } catch (error) {
       setStatus('error')
       setMessage('Something went wrong. Please try again.')
@@ -76,7 +87,7 @@ export default function ContactForm() {
                 ...
               </motion.span>
             ) : (
-              'Contact'
+              'Join Waitlist'
             )}
           </motion.button>
         </div>
@@ -94,7 +105,7 @@ export default function ContactForm() {
         )}
         
         <p className="text-base text-white/40 mt-3">
-          Enter your email to get in contact with LabMind research and development.
+          Join the waitlist to be notified when LabMind launches.
         </p>
       </form>
     </motion.div>

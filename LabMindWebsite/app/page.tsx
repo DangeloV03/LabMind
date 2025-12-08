@@ -69,7 +69,7 @@ export default function Home() {
       <div className="relative z-10">
         <Navigation />
         
-        <div className="pt-24 lg:pt-32">
+        <div className="pt-28 lg:pt-36">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-24">
             <motion.div 
               variants={containerVariants}
@@ -79,25 +79,23 @@ export default function Home() {
             >
               {/* Headline */}
               <motion.div variants={itemVariants} className="space-y-6">
-                <h1 className="text-6xl sm:text-7xl lg:text-9xl font-extrabold text-white leading-[1.05] tracking-tight">
-                  The Next Stage of
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.05] tracking-tight">
+                  The Next Stage of Research
                   <br />
                   <span className="bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">
-                    Research Data
+                     Data Science
                   </span>
-                  <br />
-                  Analysis
                 </h1>
               </motion.div>
 
               {/* Subheadline */}
               <motion.p 
                 variants={itemVariants}
-                className="text-2xl lg:text-3xl text-white/60 font-medium leading-relaxed tracking-wide"
+                className="text-xl lg:text-2xl text-white/60 font-medium leading-relaxed tracking-wide"
               >
                 AI-Powered Dynamic Pipelines for
                 <br />
-                [YOUR RESEARCH DOMAIN]
+                your research domain
               </motion.p>
 
               {/* Product Description */}
@@ -113,7 +111,7 @@ export default function Home() {
                 <p className="text-xl lg:text-2xl">
                   From preprocessing to statistical analysis and visualization, each step is executed 
                   with precision. Review, refine, and iterate—all while maintaining complete control 
-                  over your [SPECIFIC RESEARCH WORKFLOW].
+                  over your data and your project.
                 </p>
               </motion.div>
 
