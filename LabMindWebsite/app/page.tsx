@@ -83,7 +83,7 @@ export default function Home() {
                   The Next Stage of Research
                   <br />
                   <span className="bg-gradient-to-r from-white via-gray-400 to-white bg-clip-text text-transparent">
-                     Data Science
+                    
                   </span>
                 </h1>
               </motion.div>
@@ -93,10 +93,9 @@ export default function Home() {
                 variants={itemVariants}
                 className="text-xl lg:text-2xl text-white/60 font-medium leading-relaxed tracking-wide"
               >
-                AI-Powered Dynamic Pipelines for
-                <br />
-                your research domain
-              </motion.p>
+                AI-Driven Data Analysis
+                
+              </motion.p> 
 
               {/* Product Description */}
               <motion.div
@@ -104,23 +103,20 @@ export default function Home() {
                 className="space-y-6 text-white/70 leading-relaxed"
               >
                 <p className="text-xl lg:text-2xl">
-                  LabMind transforms how researchers analyze data. Import your raw data in any format, 
-                  answer dynamic AI-generated questions, and watch as our intelligent system builds 
+                  LabMind changes how researchers analyze data. Import your raw data in any format and watch as our intelligent system builds 
                   a custom analysis pipeline tailored to your research needs.
                 </p>
                 <p className="text-xl lg:text-2xl">
-                  From preprocessing to statistical analysis and visualization, each step is executed 
-                  with precision. Review, refine, and iterate—all while maintaining complete control 
-                  over your data and your project.
+          
                 </p>
               </motion.div>
 
-              {/* Feature highlights */}
+      
               <motion.div 
                 variants={itemVariants}
                 className="flex flex-wrap gap-4 py-6"
               >
-                {['Dynamic Pipelines', 'Any Data Format', 'AI-Guided Analysis'].map((feature, i) => (
+                {['Speed', 'Control', 'Intelligence'].map((feature, i) => (
                   <motion.div
                     key={feature}
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -150,7 +146,7 @@ export default function Home() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p className="text-white/40 text-sm">
-                  © {new Date().getFullYear()} LabMind. [ADDITIONAL FOOTER TEXT]
+                  © {new Date().getFullYear()} LabMind. 
                 </p>
                 <div className="flex items-center gap-6">
                   <motion.a 
@@ -158,14 +154,14 @@ export default function Home() {
                     whileHover={{ color: '#ffffff' }}
                     className="text-white/40 text-sm transition-colors"
                   >
-                    [LINK 1]
+                   
                   </motion.a>
                   <motion.a 
                     href="#" 
                     whileHover={{ color: '#ffffff' }}
                     className="text-white/40 text-sm transition-colors"
                   >
-                    [LINK 2]
+                    
                   </motion.a>
                 </div>
               </div>
