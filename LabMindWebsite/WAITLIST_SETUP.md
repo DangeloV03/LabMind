@@ -1,19 +1,25 @@
 # Waitlist Email Collection Setup
 
-## Current Setup
-The waitlist form currently stores emails in-memory (function logs) for development. For production, set up Vercel Postgres to permanently store emails.
+## ✅ Setup Complete!
 
-## Setting Up Vercel Postgres (Recommended)
+The waitlist API route has been updated to use Vercel Postgres. Follow these steps to complete the setup:
 
-### Step 1: Create Postgres Database
-1. Go to your Vercel dashboard → Your Project → Storage tab
-2. Click "Create Database" → Select "Postgres"
-3. Choose a name (e.g., "labmind-db") and region
-4. Click "Create"
+## Setting Up Vercel Postgres
+
+### Step 1: Create Postgres Database in Vercel
+1. Go to your [Vercel dashboard](https://vercel.com/dashboard)
+2. Select your project → Go to **Storage** tab
+3. Click **"Create Database"** → Select **"Postgres"**
+4. Choose a name (e.g., "labmind-db") and region (closest to your users)
+5. Click **"Create"**
 
 ### Step 2: Create Waitlist Table
-In the Vercel dashboard, go to Storage → Your Database → SQL Editor and run:
+In the Vercel dashboard, go to **Storage → Your Database → SQL Editor** and run:
 
+**Option A: Copy from migration file**
+Open `migrations/create_waitlist_table.sql` and copy the SQL, then paste it into the SQL Editor.
+
+**Option B: Run this SQL directly:**
 ```sql
 CREATE TABLE IF NOT EXISTS waitlist (
   id SERIAL PRIMARY KEY,
@@ -22,38 +28,35 @@ CREATE TABLE IF NOT EXISTS waitlist (
 );
 
 -- Create index for faster queries
-CREATE INDEX idx_waitlist_created_at ON waitlist(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_waitlist_created_at ON waitlist(created_at DESC);
+
+-- Create index on email for faster lookups
+CREATE INDEX IF NOT EXISTS idx_waitlist_email ON waitlist(email);
 ```
 
-### Step 3: Install Dependencies
-```bash
-npm install @vercel/postgres
-```
+Click **"Run"** to execute the SQL.
 
-### Step 4: Update API Route
-Uncomment the Vercel Postgres code in `app/api/waitlist/route.ts`:
+### Step 3: Verify Code is Updated ✅
+The API route (`app/api/waitlist/route.ts`) has already been updated to use Vercel Postgres. The code:
+- ✅ Imports `@vercel/postgres`
+- ✅ Inserts emails into the database
+- ✅ Handles duplicate emails gracefully
+- ✅ Returns waitlist entries via GET endpoint
 
-```typescript
-import { sql } from '@vercel/postgres'
+### Step 4: Deploy to Production
+1. Commit and push your changes:
+   ```bash
+   git add .
+   git commit -m "Set up Vercel Postgres for waitlist"
+   git push
+   ```
 
-// In POST handler, replace the console.log with:
-await sql`
-  INSERT INTO waitlist (email, created_at)
-  VALUES (${email}, NOW())
-  ON CONFLICT (email) DO NOTHING
-`
+2. Vercel will automatically:
+   - Detect the `@vercel/postgres` package
+   - Connect to your Postgres database
+   - Deploy the updated API route
 
-// In GET handler, replace waitlistEmails with:
-const result = await sql`
-  SELECT email, created_at 
-  FROM waitlist 
-  ORDER BY created_at DESC
-`
-return NextResponse.json({ emails: result.rows })
-```
-
-### Step 5: Deploy
-Push your changes and Vercel will automatically connect to your database.
+3. Test the waitlist form on your production site!
 
 ## How to Access Emails
 

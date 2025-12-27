@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server'
-
-// For development: store in memory (will reset on redeploy)
-// For production: use Vercel Postgres (see README.md for setup)
-const waitlistEmails: string[] = []
+import { sql } from '@vercel/postgres'
 
 export async function POST(request: Request) {
   try {
@@ -24,24 +21,15 @@ export async function POST(request: Request) {
       )
     }
 
-    // TODO: Replace with Vercel Postgres (see instructions below)
-    // For now, this logs to Vercel function logs which you can view in dashboard
-    console.log('📧 New waitlist signup:', email, new Date().toISOString())
-
-    // In production with Vercel Postgres, you would do:
-    /*
-    import { sql } from '@vercel/postgres'
+    // Insert email into Vercel Postgres
+    // ON CONFLICT ensures we don't add duplicate emails
     await sql`
       INSERT INTO waitlist (email, created_at)
-      VALUES (${email}, NOW())
+      VALUES (${email.toLowerCase().trim()}, NOW())
       ON CONFLICT (email) DO NOTHING
     `
-    */
 
-    // Store in memory for development (will be lost on redeploy)
-    if (!waitlistEmails.includes(email)) {
-      waitlistEmails.push(email)
-    }
+    console.log('📧 New waitlist signup:', email, new Date().toISOString())
 
     return NextResponse.json({ 
       success: true,
@@ -57,26 +45,21 @@ export async function POST(request: Request) {
 }
 
 // GET endpoint to view waitlist (for admin access)
-// In production, add authentication!
+// TODO: In production, add authentication!
 export async function GET() {
   try {
-    // TODO: Replace with Vercel Postgres query
-    /*
-    import { sql } from '@vercel/postgres'
     const result = await sql`
       SELECT email, created_at 
       FROM waitlist 
       ORDER BY created_at DESC
     `
-    return NextResponse.json({ emails: result.rows })
-    */
-
+    
     return NextResponse.json({ 
-      emails: waitlistEmails,
-      count: waitlistEmails.length,
-      note: 'In-memory storage - use Vercel Postgres for production'
+      emails: result.rows,
+      count: result.rows.length
     })
   } catch (error) {
+    console.error('Waitlist fetch error:', error)
     return NextResponse.json(
       { error: 'Failed to fetch waitlist' },
       { status: 500 }
