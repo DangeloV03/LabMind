@@ -104,7 +104,7 @@ export default function Home() {
               >
                 <p className="text-xl lg:text-2xl">
                   LabMind changes how researchers analyze data. Import your raw data in any format and watch as our intelligent system builds 
-                  a custom analysis pipeline tailored to your research needs.
+                  a custom analysis pipeline tailored to your research needs. 
                 </p>
                 <p className="text-xl lg:text-2xl">
           
