@@ -35,6 +35,22 @@ export default function Navigation() {
 
           {/* Right side */}
           <div className="flex items-center space-x-4">
+            {/* Navigation Links */}
+            <div className="hidden md:flex items-center space-x-6">
+              <a 
+                href="/" 
+                className="text-white/70 hover:text-white transition-colors text-sm font-medium"
+              >
+                Home
+              </a>
+              <a 
+                href="/analyze" 
+                className="text-white/70 hover:text-white transition-colors text-sm font-medium"
+              >
+                AI Analysis
+              </a>
+            </div>
+            
             {/* Menu icon */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -57,6 +73,31 @@ export default function Navigation() {
               </div>
             </button>
           </div>
+          
+          {/* Mobile Menu */}
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden border-t border-white/10 py-4 space-y-2"
+            >
+              <a 
+                href="/" 
+                className="block px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                Home
+              </a>
+              <a 
+                href="/analyze" 
+                className="block px-4 py-2 text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                AI Analysis
+              </a>
+            </motion.div>
+          )}
         </div>
       </div>
     </motion.nav>
