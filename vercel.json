@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd LabMindWebsite && npm install && npm run build",
+  "outputDirectory": "LabMindWebsite/.next",
+  "installCommand": "cd LabMindWebsite && npm install",
+  "framework": "nextjs",
+  "rootDirectory": "LabMindWebsite"
+}
+
